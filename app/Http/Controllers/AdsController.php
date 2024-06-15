@@ -61,13 +61,17 @@ class AdsController extends Controller
             $data = $request->all();
             $ads = $ads->create($data);
             $imge = new Img();
-            if ($request->hasFile('img_id')) {
+            if ($request->img_id->hasFile()) {//$request->hasFile('img_id')
                 $imgs = $request->file('img_id');
-                foreach ($imgs as $img) {
+                $img_url = time() . '.' . $imgs->getClientOriginalName();
+               /* foreach ($imgs as $img) {
                     $img_url = time() . '.' . $img->getClientOriginalName();
                     $img->move('ads_images', $img_url);
                     $imge->create(['image_path' => $img_url]); //['image_path'=> $img_url]
-                }
+                }*/
+
+                $imgs->store('ads_images');
+                $imge->create(['image_path' => $img_url]);
             }
             return response()->json([
                 'success' => 1,

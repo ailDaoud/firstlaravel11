@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('img', function (Blueprint $table) {
+        Schema::create('ads', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('ade_id')->references('id')->on('ads')->onUpdate('cascade')->onDelete('cascade');
-            $table->longText('img_url')->nullable();
+            $table->string('name')->nullable();
+            $table->longText('describtion')->nullable();
+            $table->integer('amount')->nullable();
+            $table->decimal('price')->nullable();
+            $table->Text('note')->nullable();
+            $table->foreignId('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->boolean('is_active')->default(0);
             $table->timestamps();
         });
@@ -25,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('img');
+        Schema::dropIfExists('ads');
     }
 };

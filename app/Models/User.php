@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,18 +10,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class User extends Authenticatable
 {
     use HasFactory;
-    protected $table = "imgs";
+    protected $table = "users";
 
-    protected $guarded = [
-        'ade_id'
-    ];
 
     protected $casts = [
         'is_active' => 'boolean'
     ];
-    public function ads(): BelongsTo
+
+    protected $guarded = ['id'];
+
+
+    public function ads(): HasMany
     {
-        return $this->belongsTo(Ads::class,'ade_id','id');
+        return $this->hasMany(Ads::class,'user_id','id');
     }
 
 }

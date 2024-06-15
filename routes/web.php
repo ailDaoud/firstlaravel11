@@ -23,3 +23,6 @@ Route::controller(AdsController::class)->group(function () {
     Route::post('/ads/store', 'store');
     Route::post('/ads/update/{id}', 'update');
 });
+Route::controller(UserController::class)->group(function () {
+    Route::get('/usere', 'index');
+});

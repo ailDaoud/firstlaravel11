@@ -11,17 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ads', function (Blueprint $table) {
+        Schema::create('imgs', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->longText('describtion')->nullable();
-            $table->integer('amount')->nullable();
-            $table->decimal('price')->nullable();
-            $table->Text('note')->nullable();
-            $table->foreignId('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('ade_id')->references('id')->on('ads')->onUpdate('cascade')->onDelete('cascade')->default(1);
+            $table->longText('image_path')->nullable();
             $table->boolean('is_active')->default(0);
             $table->timestamps();
-
         });
     }
 
@@ -30,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ads');
+        Schema::dropIfExists('imgs');
     }
 };
