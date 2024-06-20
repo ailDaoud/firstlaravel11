@@ -6,23 +6,39 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
-class User extends Authenticatable
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+class User extends Authenticatable implements JWTSubject
 {
     use HasFactory;
     protected $table = "users";
 
 
-    protected $casts = [
-        'is_active' => 'boolean'
-    ];
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
     protected $guarded = ['id'];
 
 
     public function ads(): HasMany
     {
         return $this->hasMany(Ads::class,'user_id','id');
+    }
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 
 }

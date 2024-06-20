@@ -16,9 +16,11 @@ return new class extends Migration
             $table->string('first_name');//->nullable();
             $table->string('mid_name')->nullable();
             $table->string('last_name')->nullable();
+            $table->string('password')->nullable();
             $table->string('email')->unique()->nullable();
             $table->integer('phone_number')->unique()->nullable();
             $table->string('address')->nullable();
+            $table->rememberToken();
             $table->boolean('is_active')->default(0);
             $table->boolean('verify_email')->default(0);
             $table->boolean('verify_number')->default(0);

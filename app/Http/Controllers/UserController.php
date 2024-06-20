@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Hash;
 use App\Models\Ads;
 use App\Models\User;
 use Resources\lang\ar;
@@ -44,7 +44,8 @@ class UserController extends Controller
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'mid_name' => 'required|string',
-            "email" => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+            "email" => 'required|email|unique:users',
             "phone_number" => 'required', //|unique:users,phone_number',
             "address" => "string|required"
         ]);
@@ -61,6 +62,7 @@ class UserController extends Controller
             $user->last_name = $request->last_name;
             $user->mid_name = $request->mid_name;
             $user->email = $request->email;
+            $user->password = Hash::make($request->password);
             $user->phone_number = $request->phone_number;
             $user->address = $request->address;
             $user->save();
@@ -101,6 +103,7 @@ class UserController extends Controller
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'mid_name' => 'required|string',
+            'password' => 'required|string|min:6',
             "email" => 'required|email|unique:users,email',
             "phone_number" => 'required|unique:users,phone_number',
             "address" => "string|required",
@@ -119,6 +122,7 @@ class UserController extends Controller
                 $user->last_name = $request->last_name;
                 $user->mid_name = $request->mid_name;
                 $user->email = $request->email;
+                $user->password = Hash::make($request->password);
                 $user->phone_number = $request->phone_number;
                 $user->address = $request->address;
                 $user->save();
