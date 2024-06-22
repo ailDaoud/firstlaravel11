@@ -18,7 +18,7 @@
 
         .container {
             width: 300px;
-            background: #80808033;
+            background: #0763a9;
             padding: 31px;
         }
 

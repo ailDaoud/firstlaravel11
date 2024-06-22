@@ -96,10 +96,9 @@ class AuthController extends Controller
 
                 ]);
                 $token = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
-                if($token){
+                if ($token) {
                     return View('home');
-                }
-                else{
+                } else {
                     return View('register');
                 }
             }
@@ -124,10 +123,24 @@ class AuthController extends Controller
 
         //  return response()->json(['message' => 'Successfully logged out']);
     }
-    public function me()
+    public function profile(Request $request)
     {
         # Here we just get information about current user
         //  return response()->json(auth()->user());
+        if ($request->isMethod('post')) {
+            $request->validate([
+                "email" => 'required|string|email|unique:users',
+                'first_name' => 'required|string',
+                "phone_number" => 'required|unique:users,phone_number',
+            ]);
+            $user = new User;
+            if ($user) {
+                $user->first_name = $request->first_name;
+                $user->phone_number = $request->phone_number;
+                $user->save();
+            }
+        }
+
         return View('profile');
     }
     public function home()

@@ -3,6 +3,7 @@
 
 <head>
     <title>Dashboard Page</title>
+    @csrf
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -141,15 +142,15 @@
                 <form class="profile-form" method="post" action="{{route("profile")}}">
                     <div class="form-group">
                         <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" value="">
+                        <input type="text" id="name" name="first_name" value="{{auth()->user()->first_name?? "Ali"}}">
                     </div>
                     <div class="form-group">
                         <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" value="{{auth()->user()->number_phone?? "Ali"}}" disabled>
+                        <input type="email" id="email" name="email" value="{{auth()->user()->email?? "Ali"}}" disabled>
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone:</label>
-                        <input type="tel" id="phone" name="phone" value="">
+                        <input type="tel" id="phone" name="phone_number" value="{{auth()->user()->phone_number?? "Ali"}}">
                     </div>
                     <div class="form-group">
                         <button type="submit">Save Changes</button>
