@@ -17,14 +17,23 @@ Route::controller(UserController::class)->group(function () {
     Route::delete('/user/delete/{id}', 'destroy');
 });
 
-Route::post('auth/register',[AuthController::class,'register']);
-Route::post('auth/login',[AuthController::class,'login']);
-
+//Route::post('auth/register',[AuthController::class,'register']);
+//Route::post('auth/login',[AuthController::class,'login']);
+Route::match(['get','post'],'auth/register',[AuthController::class,'register'])->name('register');
+Route::match(['get','post'],'auth/login',[AuthController::class,'login'])->name('login');
+Route::get('home', [AuthController::class, 'home'])->name('home');
 Route::group([
-    'middleware' => 'api',
+    'middleware' => 'auth',
     'prefix' => 'auth'
 ], function ($router) {
-    Route::post('logout', [AuthController::class, 'logout']);
+    Route::match(['get','post'],'logout', [AuthController::class, 'logout'])->name('logout');
   //  Route::post('refresh', [AuthController::class, 'refresh']);
-    Route::post('me', [AuthController::class, 'me']);
+  Route::match(['get','post'],'me',[AuthController::class,'me'])->name('profile');
+});
+Route::group([
+    'middleware' => ['guest','web'],
+    'prefix' => 'auth'
+], function ($router) {
+    Route::match(['get','post'],'register',[AuthController::class,'register'])->name('register');
+    Route::match(['get','post'],'login',[AuthController::class,'login'])->name('login');
 });
