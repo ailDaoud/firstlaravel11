@@ -4,6 +4,7 @@
 
 <head>
     <title>Login Page</title>
+    <script src="http://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     @session('status')
 
     @endsession
@@ -102,7 +103,6 @@
         }
     </style>
 </head>
-
 <body>
     <div class="container">
         @section('sucsess')
@@ -133,6 +133,14 @@
         </form>
 
     </div>
+    <script >
+        console.log("hello");
+        const g=async()=>{
+            let response=await axios.post("http://127.0.0.1/api/auth/login")
+            return response.data
+        }
+        g().then((data)=>console.log(data))
+    </script>
 
 </body>
 
