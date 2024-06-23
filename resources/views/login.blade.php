@@ -1,12 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <title>Login Page</title>
-    <script src="http://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!--   <script src="http://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>-->
     @session('status')
-
     @endsession
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -103,6 +101,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         @section('sucsess')
@@ -128,20 +127,24 @@
                 <button type="submit">Login</button>
             </div>
             <div class="form-group">
-                <p>Don't have an account? <a href="{{route("register")}}">Register</a></p>
+                <p>Don't have an account? <a href="{{ route('register') }}">Register</a></p>
             </div>
         </form>
 
     </div>
-    <script >
+    <script>
+        console.log(sessionStorage.getItem('key'));
+        let accsessToken = sessionStorage.getItem("tok");
+        console.log(accsessToken);
+        console.log("888888888888");
         console.log("hello");
-        const g=async()=>{
-            let response=await axios.post("http://127.0.0.1/api/auth/login")
-            return response.data
-        }
-        g().then((data)=>console.log(data))
     </script>
 
 </body>
 
 </html>
+<!--const g = async () => {
+            let response = await axios.post("http://127.0.0.1/api/auth/login")
+            return response.data
+        }
+        g().then((data) => console.log(data)) -->

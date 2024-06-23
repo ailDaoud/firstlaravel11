@@ -31,7 +31,7 @@ Route::group([
   Route::match(['get','post'],'profile',[AuthController::class,'profile'])->name('profile');
 });
 Route::group([
-    'middleware' => ['guest','web'],
+   // 'middleware' => ['guest','web'],
     'prefix' => 'auth'
 ], function ($router) {
     Route::match(['get','post'],'register',[AuthController::class,'register'])->name('register');

@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Session\SessionServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Exception;
 use Illuminate\View\View;
+use App\Http\Controllers\sessionStorage;
+use Illuminate\Support\Facades\Session;
+use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageFactoryInterface;
+use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
 
 class AuthController extends Controller
 {
@@ -29,19 +34,31 @@ class AuthController extends Controller
                 }
                 $token = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
                 if (!$token) {
-                    /*  return response()->json([
+                    return response()->json([
                         'sucsess' => 0,
                         'result' => null,
                         'message' => 'register first',
-                    ], 200);*/
-                    return to_route('login')->with('error', 'Invalid login');
+                    ], 200);
+                    // return to_route('login')->with('error', 'Invalid login');
                 } else {
-                    /*   $user = User::where('email', $request->email)->first();
-                    return response()->json([
+                    $user = User::where('email', $request->email)->first();
+                    Session::put('token', $token);
+                    session(['key' => 'value']);
+                    /* return response()->json([
                         'sucsess' => 1,
                         'user' => $user,
-                        'token' => $token
-                    ], 200);*/
+                        'token' => Session::get('token'),
+                    ], 200);
+                   /*  Session::put('token',$token);
+                    session(['token' => $token]);
+                    session(['key' => 'value']);
+                    $request->session()->put('key', 'value');
+                    return View('home');
+                  /* return response()->json([
+                    'sucsess' => 1,
+                   // 'user' => $user,
+                    'token' => Session::get('token')
+                ], 200);*/
                     return View('home');
                 }
             } catch (Exception $e) {
@@ -121,7 +138,7 @@ class AuthController extends Controller
         auth()->logout();
         return View('logout'); # This is just logout function that will destroy access token of current user
 
-        //  return response()->json(['message' => 'Successfully logged out']);
+        //     return response()->json(['message' => 'Successfully logged out']);
     }
     public function profile(Request $request)
     {
