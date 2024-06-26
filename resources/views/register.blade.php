@@ -107,9 +107,7 @@
             @csrf
             <div class="form-group">
                 <input type="text" name="first_name" id="name" placeholder="First Name">
-                @error("first_name")
-                <div class="error">{{$message}}</div>
-                @enderror
+
             </div>
             <div class="form-group">
                 <input type="text" name="last_name" id="name" placeholder="Last Name">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Customs\services\EmailVerificationService;
 use Illuminate\Http\Request;
 use Illuminate\Session\SessionServiceProvider;
 use Illuminate\Support\Facades\Auth;
@@ -12,12 +13,16 @@ use Exception;
 use Illuminate\View\View;
 use App\Http\Controllers\sessionStorage;
 use App\Models\Ads;
+use App\Models\EmailOTP;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageFactoryInterface;
 use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
 
 class AuthController extends Controller
 {
+    public function __construct(private EmailVerificationService $Service)
+    {
+    }
     public function login(Request $request)
     {
         if ($request->ismethod("post")) {
@@ -114,10 +119,15 @@ class AuthController extends Controller
                     'password' => Hash::make($request->password),
 
                 ]);
-                $token = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
+                if($user){
+                    $this->Service->sendVerificationCode($user);
+                    $data=Ads::all();
+                    return View('home',compact('data'));
+                }
+               /* $token = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
                 if ($token) {
                     return View('home');
-                } else {
+                }*/ else {
                     return View('register');
                 }
             }
