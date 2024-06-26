@@ -15,6 +15,7 @@ class AdsController extends Controller
     {
         $img = Img::with('ads')->get();
         $ads = Ads::with('images')->get();
+        $data = Ads::all();
         try {
             if ($ads) {
                 return response()->json([
@@ -61,10 +62,10 @@ class AdsController extends Controller
             $data = $request->all();
             $ads = $ads->create($data);
             $imge = new Img();
-            if ($request->img_id->hasFile()) {//$request->hasFile('img_id')
+            if ($request->img_id->hasFile()) { //$request->hasFile('img_id')
                 $imgs = $request->file('img_id');
                 $img_url = time() . '.' . $imgs->getClientOriginalName();
-               /* foreach ($imgs as $img) {
+                /* foreach ($imgs as $img) {
                     $img_url = time() . '.' . $img->getClientOriginalName();
                     $img->move('ads_images', $img_url);
                     $imge->create(['image_path' => $img_url]); //['image_path'=> $img_url]
@@ -144,7 +145,7 @@ class AdsController extends Controller
                 if ($request->hasFile('img_id')) {
                     $imgs = $request->file('img_id');
                     foreach ($imgs as $img) {
-                      //  $i=$request->img_id;
+                        //  $i=$request->img_id;
                         $img_url = time() . '.' . $img->getClientOriginalName();
                         $img->store('ads_images');
                         $img->save();

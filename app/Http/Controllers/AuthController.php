@@ -11,6 +11,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\View\View;
 use App\Http\Controllers\sessionStorage;
+use App\Models\Ads;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageFactoryInterface;
 use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
@@ -59,7 +60,8 @@ class AuthController extends Controller
                    // 'user' => $user,
                     'token' => Session::get('token')
                 ], 200);*/
-                    return View('home');
+                $data=Ads::all();
+                    return View('home',compact('data'));
                 }
             } catch (Exception $e) {
                 return response()->json([

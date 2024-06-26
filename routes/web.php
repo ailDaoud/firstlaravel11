@@ -17,7 +17,7 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/user/update/{id}', 'update');
 });
 Route::controller(AdsController::class)->group(function () {
-    Route::get('/ads/get', 'index');
+    Route::get('/ads/get', 'index')->name('getads');
     Route::delete('/ads/delete/{id}', 'destroy');
     Route::get('/ads/show/{id}', 'show');
     Route::post('/ads/store', 'store');
