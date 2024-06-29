@@ -23,6 +23,9 @@ Route::controller(UserController::class)->group(function () {
 
 
 Route::middleware(Localize::class)->group(function () {
+    Route::get('auth/local/{lang}',[LangControllre::class,'setlang']);
+
+
     Route::resource('users', UserController::class);
     Route::controller(UserController::class)->group(function () {
         Route::post('/user/update/{id}', 'update');

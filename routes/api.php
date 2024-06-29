@@ -7,3 +7,4 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdsController;
 use App\Http\Controllers\LangControllre;
 use App\Http\Middleware\Localize;
+
