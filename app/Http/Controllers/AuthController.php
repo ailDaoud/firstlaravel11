@@ -199,7 +199,7 @@ class AuthController extends Controller
                 $user->save();
                 $del_otp=VerifyOtp::where('code',$get_otp->code)->first();
                 $del_otp->delete();
-                return View('home');//redirect('/home')->with('active');
+               redirect('/home')->with('active');
             }
             else{
                 return redirect('/otp_verify')->with('wrong_otp','Wrong OTP');
