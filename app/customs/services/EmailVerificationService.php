@@ -5,6 +5,7 @@ use App\Models\EmailOTP;
 use App\Models\EmailVerificationCode;
 use App\Models\User;
 use App\Notifications\EmailOTP as EO ;
+use App\Notifications\EmailOTP as NotificationsEmailOTP;
 use App\Notifications\EmailVerificationNotification;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Notification;

@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Customs\services\EmailVerificationService;
+use App\Mail\MyEmail;
+use App\Models\VerifyOtp;
 use Illuminate\Http\Request;
 use Illuminate\Session\SessionServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Exception;
@@ -120,9 +123,16 @@ class AuthController extends Controller
 
                 ]);
                 if($user){
-                    $this->Service->sendVerificationCode($user);
+                   $validotp=rand(000000,999999);
+                   $get_otp=new VerifyOtp();
+                   $get_otp->code=$validotp;
+                   $get_otp->email=$user->email;
+                   $get_otp->save();
+                   $get_user_email=$user->email;
+                   $get_user_first_name=$user->first_name;
+                   Mail::to($user->email)->send(new MyEmail($get_user_email,$validotp,$get_user_first_name) );
                     $data=Ads::all();
-                    return View('home',compact('data'));
+                    return View('otp_verify');//View('home',compact('data'));
                 }
                /* $token = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
                 if ($token) {
@@ -175,5 +185,30 @@ class AuthController extends Controller
     public function home()
     {
         return View('home');
+    }
+    public function verify_otp(Request $request){
+        if($request->isMethod('post')){
+          $get_otp=$request->code;
+          $get_otp=VerifyOtp::where('code',$get_otp)->first();
+          if($get_otp){
+            $get_otp->is_active=1;
+            $get_otp->save();
+            $user=User::where('email',$get_otp->email)->first();
+            if($user){
+                $user->is_active=1;
+                $user->save();
+                $del_otp=VerifyOtp::where('code',$get_otp->code)->first();
+                $del_otp->delete();
+                return View('home');//redirect('/home')->with('active');
+            }
+            else{
+                return redirect('/otp_verify')->with('wrong_otp','Wrong OTP');
+            }
+          }
+          else{
+            return redirect('/otp_verify')->with('wrong','Something went wrong');
+        }
+        }
+        return View('otp_verify');
     }
 }

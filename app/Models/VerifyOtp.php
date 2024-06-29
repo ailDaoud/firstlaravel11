@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EmailOTP extends Model
+class VerifyOtp extends Model
 {
     use HasFactory;
-    protected $guarded =[];
+    protected $fillable=[
+        'code','email','is_active'
+    ];
 }
