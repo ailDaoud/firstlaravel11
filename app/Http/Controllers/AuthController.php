@@ -23,9 +23,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
 
 class AuthController extends Controller
 {
-    public function __construct(private EmailVerificationService $Service)
-    {
-    }
+
     public function login(Request $request)
     {
         if ($request->ismethod("post")) {
@@ -68,8 +66,8 @@ class AuthController extends Controller
                    // 'user' => $user,
                     'token' => Session::get('token')
                 ], 200);*/
-                $data=Ads::all();
-                    return View('home',compact('data'));
+                    $data = Ads::all();
+                    return View('home', compact('data'));
                 }
             } catch (Exception $e) {
                 return response()->json([
@@ -122,19 +120,19 @@ class AuthController extends Controller
                     'password' => Hash::make($request->password),
 
                 ]);
-                if($user){
-                   $validotp=rand(000000,999999);
-                   $get_otp=new VerifyOtp();
-                   $get_otp->code=$validotp;
-                   $get_otp->email=$user->email;
-                   $get_otp->save();
-                   $get_user_email=$user->email;
-                   $get_user_first_name=$user->first_name;
-                   Mail::to($user->email)->send(new MyEmail($get_user_email,$validotp,$get_user_first_name) );
-                    $data=Ads::all();
-                    return View('otp_verify');//View('home',compact('data'));
+                if ($user) {
+                    $validotp = rand(000000, 999999);
+                    $get_otp = new VerifyOtp();
+                    $get_otp->code = $validotp;
+                    $get_otp->email = $user->email;
+                    $get_otp->save();
+                    $get_user_email = $user->email;
+                    $get_user_first_name = $user->first_name;
+                    Mail::to($user->email)->send(new MyEmail($get_user_email, $validotp, $get_user_first_name));
+                    $data = Ads::all();
+                    return View('otp_verify'); //View('home',compact('data'));
                 }
-               /* $token = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
+                /* $token = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
                 if ($token) {
                     return View('home');
                 }*/ else {
@@ -186,30 +184,29 @@ class AuthController extends Controller
     {
         return View('home');
     }
-    public function verify_otp(Request $request){
-        if($request->isMethod('post')){
-          $get_otp=$request->code;
-          $get_otp=VerifyOtp::where('code',$get_otp)->first();
-          if($get_otp){
-            $get_otp->is_active=1;
-            $get_otp->save();
-            $user=User::where('email',$get_otp->email)->first();
-            if($user){
-                $user->is_active=1;
-                $user->save();
-                $del_otp=VerifyOtp::where('code',$get_otp->code)->first();
-                $del_otp->delete();
-                $data=Ads::all();
-              // redirect('/home')->with('active');
-              return View('home',compact('data'));
+    public function verify_otp(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $get_otp = $request->code;
+            $get_otp = VerifyOtp::where('code', $get_otp)->first();
+            if ($get_otp) {
+                $get_otp->is_active = 1;
+                $get_otp->save();
+                $user = User::where('email', $get_otp->email)->first();
+                if ($user) {
+                    $user->is_active = 1;
+                    $user->save();
+                    $del_otp = VerifyOtp::where('code', $get_otp->code)->first();
+                    $del_otp->delete();
+                    $data = Ads::all();
+                    // redirect('/home')->with('active');
+                    return View('home', compact('data'));
+                } else {
+                    return View('otp_verify')->with('wrong_otp', 'Wrong OTP'); // return redirect('/otp_verify')->with('wrong_otp','Wrong OTP');
+                }
+            } else {
+                return View('otp_verify')->with('wrong', 'Something went wrong'); // return redirect('/otp_verify')->with('wrong','Something went wrong');
             }
-            else{
-                return View('otp_verify')->with('wrong_otp','Wrong OTP'); // return redirect('/otp_verify')->with('wrong_otp','Wrong OTP');
-            }
-          }
-          else{
-            return View('otp_verify')->with('wrong','Something went wrong'); // return redirect('/otp_verify')->with('wrong','Something went wrong');
-        }
         }
         return View('otp_verify');
     }

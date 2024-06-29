@@ -13,7 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->web(Localize::class);
+      //  $middleware->web(Localize::class);
+        $middleware->append(Localize::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

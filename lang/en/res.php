@@ -2,6 +2,10 @@
 
 return [
 
+    'logout'=>'logout ',
+    'home'=>'home ',
+    'profile'=>'profile ',
+
 'messagee'=>'there is no user',
 'store'=>'user store sucsessfully',
 'show'=>'user not found',
@@ -13,5 +17,9 @@ return [
 'a_show'=>'there is no Ads',
 'a_update'=>'Ads updated  sucsessfully ',
 'a_delete'=>'Ads deleted sucsessfully',
+
+'price'=>'price',
+'description'=>'description',
+'getitnow'=>'Get It Now'
 
 ];

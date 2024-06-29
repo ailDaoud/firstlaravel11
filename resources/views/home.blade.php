@@ -150,26 +150,68 @@
             background: #333;
             color: #ffffff;
         }
+
         .responsive {
-  padding: 0 6px;
-  float: left;
-  width: 24.99999%;
-}
+            padding: 0 6px;
+            float: left;
+            width: 24.99999%;
+        }
 
 
-@media only screen and (max-width: 700px){
-  .responsive {
-    width: 49.99999%;
-    margin: 6px 0;
-  }
-}
+        @media only screen and (max-width: 700px) {
+            .responsive {
+                width: 49.99999%;
+                margin: 6px 0;
+            }
+        }
 
-@media only screen and (max-width: 500px){
-  .responsive {
-    width: 100%;
-  }
+        @media only screen and (max-width: 500px) {
+            .responsive {
+                width: 100%;
+            }
 
-}
+        }
+
+        .dropbtn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #b62319;
+        }
     </style>
 </head>
 
@@ -179,10 +221,17 @@
         <nav class="navbar">
             <div class="container">
                 <ul class="menu">
-                    <li><a href="{{ route('home') }}">Home</a></li>
-                    <li><a href="{{ route('profile') }}">Profile</a></li>
-                    <li><a href="{{ route('logout') }}">Logout</a></li>
+                    <li><a href="{{ route('home') }}">@lang('res.home')</a></li>
+                    <li><a href="{{ route('profile') }}">@lang('res.profile')</a></li>
+                    <li><a href="{{ route('logout') }}">@lang('res.logout')</a></li>
                 </ul>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Language</button>
+                <div class="dropdown-content">
+                    <a href="local/ar">Arabic</a>
+                    <a href="local/en">English</a>
+                </div>
             </div>
         </nav>
     </header>
@@ -199,11 +248,13 @@
     </div>
     <div class="card">
         @foreach ($data as $items)
-            <img class="responsive" src="https://contentstatic.techgig.com/photo/88751917/7-programming-languages-every-beginner-should-explore.jpg?35120" alt="" style="width:100%" style="height: auto;">
+            <img class="responsive"
+                src="https://contentstatic.techgig.com/photo/88751917/7-programming-languages-every-beginner-should-explore.jpg?35120"
+                alt="" style="width:100%" style="height: auto;">
             <h1>{{ $items->name }}</h1>
-            <p class="price">price : {{ $items->price }} $</p>
-            <p> describtion : {{ $items->describtion }}</p>
-            <p><button class="btn">Get it now</button></p>
+            <p class="price">@lang('res.price') : {{ $items->price }} $</p>
+            <p> @lang('res.description') : {{ $items->describtion }}</p>
+            <p><button class="btn">@lang('res.getitnow')</button></p>
             <hr>
             <br>
         @endforeach
