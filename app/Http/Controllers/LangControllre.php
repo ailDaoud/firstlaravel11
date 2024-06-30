@@ -25,5 +25,21 @@ class LangControllre extends Controller
         return redirect()->back();
 
     }
+    public function a(){
+        App::setLocale('ar');
+        Session::put('local','ar');
+        $data = Ads::all();
+        redirect()->back();
+       return View('home',compact('data'));
+
+    }
+    public function e(){
+        App::setLocale('en');
+        Session::put('local','en');
+        $data = Ads::all();
+        redirect()->back();
+       return View('home',compact('data'));
+
+    }
 }
 
