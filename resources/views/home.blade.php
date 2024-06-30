@@ -252,7 +252,7 @@
                 src="https://contentstatic.techgig.com/photo/88751917/7-programming-languages-every-beginner-should-explore.jpg?35120"
                 alt="" style="width:100%" style="height: auto;">
             <h1>{{ $items->name }}</h1>
-            <p class="price">@lang('res.price') : {{ $items->price }} $</p>
+            <p class="price">@lang('res.price') : {{ $items->price }} </p>
             <p> @lang('res.description') : {{ $items->describtion }}</p>
             <p><button class="btn">@lang('res.getitnow')</button></p>
             <hr>

@@ -24,6 +24,8 @@ Route::controller(UserController::class)->group(function () {
 
 Route::middleware(Localize::class)->group(function () {
     Route::get('auth/local/{lang}',[LangControllre::class,'setlang']);
+    Route::get('auth/local/local/{lang}',[LangControllre::class,'back']);
+  //  Route::get('auth/local/local/{lang}',[LangControllre::class,'back']);
 
 
     Route::resource('users', UserController::class);
