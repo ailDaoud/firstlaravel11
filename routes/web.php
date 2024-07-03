@@ -23,7 +23,7 @@ Route::controller(UserController::class)->group(function () {
 
 
 Route::middleware(Localize::class)->group(function () {
-    Route::get('auth/local/{lang}',[LangControllre::class,'setlang']);
+    Route::get('auth/home/{lang}',[LangControllre::class,'setlang']);
     Route::get('auth/local/local/{lang}',[LangControllre::class,'back']);
   //  Route::get('auth/local/local/{lang}',[LangControllre::class,'back']);
   Route::get('auth/local/en',[LangControllre::class,'e'])->name('e');

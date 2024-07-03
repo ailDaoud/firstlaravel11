@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('phone_number')->unique()->nullable();
             $table->string('address')->nullable();
             $table->rememberToken();
-            $table->timestamp('email_verified_at');
+          //  $table->timestamp('email_verified_at');
             $table->boolean('is_active')->default(0);
             $table->boolean('verify_email')->default(0);
             $table->boolean('verify_number')->default(0);

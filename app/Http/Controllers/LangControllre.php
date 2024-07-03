@@ -14,7 +14,6 @@ class LangControllre extends Controller
         App::setLocale($local);
         Session::put('local',$local);
         $data = Ads::all();
-        redirect()->back();
        return View('home',compact('data'));
       // return redirect()->back()->with(View('home',compact('data')));
     //  return redirect()->route('home');

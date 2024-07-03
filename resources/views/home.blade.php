@@ -229,8 +229,8 @@
             <div class="dropdown">
                 <button class="dropbtn">Language</button>
                 <div class="dropdown-content">
-                    <a href="#" action="{{route('a')}}" method="get">Arabic<script>{{Session::put("local", "ar");}}</script></a>
-                    <a href="#" action="{{route('e')}}" method="get">English<script>{{Session::get('local');}}</script></a>
+                    <a href="{{url('auth/home/ar')}}" action="" method="get">Arabic<script>{{Session::put("local", "ar");}}</script></a>
+                    <a href="{{url('auth/home/en')}}" action="" method="get">English<script>{{Session::get('local');}}</script></a>
                 </div>
             </div>
         </nav>

@@ -40,53 +40,68 @@ class AdsController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'describtion' => 'required|string',
-            'amount' => 'required|integer',
-            'price' => 'required|integer',
-            'note' => 'required|string',
-            'user_id' => 'required|integer',
-            'img_id' => 'required|image'
-        ]);
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => 0,
-                'result' => null,
-                'message' => $validator->errors(),
-            ], 200);
-        }
-        try {
-            $ads = new Ads();
-            $data = $request->all();
-            $ads = $ads->create($data);
-            $imge = new Img();
-            if ($request->img_id->hasFile()) { //$request->hasFile('img_id')
-                $imgs = $request->file('img_id');
-                $img_url = time() . '.' . $imgs->getClientOriginalName();
-                /* foreach ($imgs as $img) {
-                    $img_url = time() . '.' . $img->getClientOriginalName();
-                    $img->move('ads_images', $img_url);
-                    $imge->create(['image_path' => $img_url]); //['image_path'=> $img_url]
-                }*/
+{
+    $validator = Validator::make($request->all(), [
+        'name' => 'required|string',
+        'describtion' => 'required|string',
+        'amount' => 'required|integer',
+        'price' => 'required|integer',
+        'note' => 'required|string',
+        'image_path' => 'required|array',
+        'image_path.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+    ]);
 
-                $imgs->store('ads_images');
-                $imge->create(['image_path' => $img_url]);
+    if ($validator->fails()) {
+        return response()->json([
+            'success' => 0,
+            'result' => null,
+            'message' => $validator->errors(),
+        ], 200);
+    }
+
+    try {
+        $user = User::findOrFail($request->user_id);
+        $ads = $user->ads()->create([
+            'user_id' => $request->user_id,
+            'name' => $request->name,
+            'describtion' => $request->describtion,
+            'amount' => $request->amount,
+            'price' => $request->price,
+            'note' => $request->note,
+        ]);
+
+        if ($request->hasFile('image_path')) {
+            foreach ($request->file('image_path') as $file) {
+                $filename = time() . '_' . $file->getClientOriginalName();
+               // $file->move(public_path('ads_images'), $filename);
+                $file->store('image','public');
+              // $file->store('image');ss
+                $ads->images()->create([
+                    'ad_id' => $ads->id,
+                    'image_path' => 'ads_images/' . $filename
+                ]);
             }
+
             return response()->json([
                 'success' => 1,
                 'result' => __('res.a_store'),
-                'message' => ''
+                'message' => ""
             ], 200);
-        } catch (Exception $e) {
+        } else {
             return response()->json([
                 'success' => 0,
                 'result' => null,
-                'message' => $e
+                'message' => 'No images uploaded.'
             ], 200);
         }
+    } catch (Exception $e) {
+        return response()->json([
+            'success' => 0,
+            'result' => null,
+            'message' => $e->getMessage()
+        ], 200);
     }
+}
     public function show($id)
     {
         $ads = Ads::findOrFail($id)->with('images')->get();

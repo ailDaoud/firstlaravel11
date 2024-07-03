@@ -11,6 +11,9 @@ class Img extends Model
     use HasFactory;
     protected $table = "imgs";
 
+    protected $fillable=[
+        'image_path','ade_id'
+    ];
   /*  protected $guarded = [
         'ade_id'
     ];*/
