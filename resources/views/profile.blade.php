@@ -140,6 +140,7 @@
 
                 <h2>Profile</h2>
                 <form class="profile-form" method="post" action="{{route("profile")}}">
+                    @csrf
                     <div class="form-group">
                         <label for="name">Name:</label>
                         <input type="text" id="name" name="first_name" value="{{auth()->user()->first_name?? "Ali"}}">

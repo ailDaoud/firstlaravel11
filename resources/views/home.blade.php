@@ -224,6 +224,7 @@
                     <li><a href="{{ route('home') }}">@lang('res.home')</a></li>
                     <li><a href="{{ route('profile') }}">@lang('res.profile')</a></li>
                     <li><a href="{{ route('logout') }}">@lang('res.logout')</a></li>
+                    <li><a href="{{ route('addpost') }}">@lang('res.addpost')</a></li>
                 </ul>
             </div>
             <div class="dropdown">

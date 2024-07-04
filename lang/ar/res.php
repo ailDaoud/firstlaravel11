@@ -20,8 +20,8 @@ return [
 
 'price'=>'السعر',
 'description'=>'الوصف',
-'getitnow'=>'احصل عليه الان'
-
+'getitnow'=>'احصل عليه الان',
+'addpost'=>'اضافة اعلان'
 
 ];
 //store update only

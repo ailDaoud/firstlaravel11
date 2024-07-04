@@ -8,6 +8,7 @@ use App\Models\Img;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Exception;
+use Illuminate\Support\Facades\View;
 
 class AdsController extends Controller
 {
@@ -41,6 +42,7 @@ class AdsController extends Controller
 
     public function store(Request $request)
 {
+    if($request->isMethod('post')){
     $validator = Validator::make($request->all(), [
         'name' => 'required|string',
         'describtion' => 'required|string',
@@ -82,17 +84,20 @@ class AdsController extends Controller
                 ]);
             }
 
-            return response()->json([
+          /*  return response()->json([
                 'success' => 1,
                 'result' => __('res.a_store'),
                 'message' => ""
-            ], 200);
+            ], 200);*/
+            $data=Ads::all();
+            return View('home',compact('data'));
         } else {
-            return response()->json([
+           /* return response()->json([
                 'success' => 0,
                 'result' => null,
                 'message' => 'No images uploaded.'
-            ], 200);
+            ], 200);*/
+            return View('add_post');
         }
     } catch (Exception $e) {
         return response()->json([
@@ -101,6 +106,10 @@ class AdsController extends Controller
             'message' => $e->getMessage()
         ], 200);
     }
+}
+else{
+    return View('add_post');
+}
 }
     public function show($id)
     {

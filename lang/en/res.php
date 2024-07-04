@@ -20,6 +20,6 @@ return [
 
 'price'=>'price',
 'description'=>'description',
-'getitnow'=>'Get It Now'
-
+'getitnow'=>'Get It Now',
+'addpost'=>'add post'
 ];
