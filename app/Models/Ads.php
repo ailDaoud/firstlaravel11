@@ -28,3 +28,4 @@ class Ads extends Model
         return $this->belongsTo(User::class,'user_id','id');
     }
 }
+// @foreach ($items->images as $img )

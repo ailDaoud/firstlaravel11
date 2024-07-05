@@ -7,10 +7,14 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdsController;
 use App\Http\Controllers\LangControllre;
 use App\Http\Middleware\Localize;
+use Illuminate\Support\Facades\View;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
+Route::get('/',function(){
+    return View('welcome');
+});
 
 Route::controller(UserController::class)->group(function () {
     Route::get('/showusers', 'index');

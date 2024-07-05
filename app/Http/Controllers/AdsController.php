@@ -75,12 +75,12 @@ class AdsController extends Controller
         if ($request->hasFile('image_path')) {
             foreach ($request->file('image_path') as $file) {
                 $filename = time() . '_' . $file->getClientOriginalName();
-               // $file->move(public_path('ads_images'), $filename);
-                $file->store('image','public');
+                $file->move(\public_path('ads_images'), $filename);
+               // $file->store('image','public');
               // $file->store('image');ss
                 $ads->images()->create([
                     'ad_id' => $ads->id,
-                    'image_path' => 'ads_images/' . $filename
+                    'image_path' =>$filename//'ads_images/' .
                 ]);
             }
 

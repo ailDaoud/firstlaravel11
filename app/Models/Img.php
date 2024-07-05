@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 class Img extends Model
 {
@@ -24,5 +25,8 @@ class Img extends Model
     public function ads(): BelongsTo
     {
         return $this->belongsTo(Ads::class,'ade_id','id');
+    }
+    public function url(){
+        return Storage::url($this->image_path);
     }
 }
