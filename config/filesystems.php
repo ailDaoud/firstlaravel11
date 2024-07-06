@@ -30,16 +30,31 @@ return [
 
     'disks' => [
 
+        'local1' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/image/'),
+            'url' => env('APP_URL').'/storage/image/',
+            'throw' => false,
+        ]
+        ,
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
             'throw' => false,
         ],
 
+        'images' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/image/'),
+            'url' => env('APP_URL').'/storage/image/',
+            'visibility' => 'public',
+        ],
+
+
         'public' => [
             'driver' => 'local',
-            'root' =>public_path() ,//storage_path('app/public'),
-            'url' => env('APP_URL'),//env('APP_URL').'/storage',
+            'root' =>storage_path('app/public/'),//public_path() ,//storage_path('app/public'),
+            'url' => env('APP_URL').'/storage',//env('APP_URL'),//env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw' => false,
         ],

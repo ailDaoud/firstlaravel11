@@ -182,7 +182,8 @@ class AuthController extends Controller
     }
     public function home()
     {
-        return View('home');
+        $data = Ads::all();
+        return View('home', compact('data'));
     }
     public function verify_otp(Request $request)
     {

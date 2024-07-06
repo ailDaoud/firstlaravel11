@@ -250,17 +250,18 @@
             <div class="container">
 
 
-                <!--    <h2>Hi "auth()->user()->first_name", Welcome to the First Laravel project</h2>-->
+                <!--    <h2>Hi "auth()->user()->first_name", Welcome to the First Laravel project</h2>
+                /storage/image/ $img->image_path -->
 
             </div>
         </div>
     </div>
     <div class="card">
         @foreach ($data as $items)
-
-                <img class="responsive" src="{{ asset('') }}" alt=""
+            @foreach ($items->images as $img)
+                <img class="responsive" src= "storage/image/{{$img->image_path}}" alt=""
                     style="width:100%" style="height: auto">
-
+            @endforeach
             <h1>{{ $items->name }}</h1>
             <p class="price">@lang('res.price') : {{ $items->price }} </p>
             <p> @lang('res.description') : {{ $items->describtion }}</p>

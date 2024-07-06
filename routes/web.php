@@ -44,8 +44,7 @@ Route::middleware(Localize::class)->group(function () {
      //   Route::post('/ads/store', 'store');
         Route::post('/ads/update/{id}', 'update');
     });
-///////////////
-    Route::match(['get', 'post'], 'profile', [AuthController::class, 'profile'])->name('profile');
+//////////////
 
 ///////////////
     Route::get('home', [AuthController::class, 'home'])->name('home');
@@ -56,7 +55,7 @@ Route::middleware(Localize::class)->group(function () {
       //  Route::match(['get', 'post'], 'addpost', [AdsController::class, 'store'])->name('addpost');
         Route::match(['get', 'post'], 'logout', [AuthController::class, 'logout'])->name('logout');
         Route::get('home', [AuthController::class, 'home'])->name('home');
-        Route::match(['get', 'post'], 'profile', [AuthController::class, 'profile'])->name('profile');
+    //    Route::match(['get', 'post'], 'profile', [AuthController::class, 'profile'])->name('profile');
     });
 
 });
@@ -68,6 +67,8 @@ Route::group([
     Route::match(['get', 'post'], 'register', [AuthController::class, 'register'])->name('register');
     Route::match(['get', 'post'], 'login', [AuthController::class, 'login'])->name('login');
     Route::match(['get', 'post'], 'verify_otp', [AuthController::class, 'verify_otp'])->name('verify_otp');
+    Route::match(['get', 'post'], 'profile', [AuthController::class, 'profile'])->name('profile');
+    Route::get('home', [AuthController::class, 'home'])->name('home');
   //  Route::get('local/{lang}',[LangControllre::class,'setlang']);
 });
 
