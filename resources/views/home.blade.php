@@ -259,11 +259,9 @@
     <div class="card">
         @foreach ($data as $items)
             @foreach ($items->images as $img)
-                <img class="responsive" src= "{{ asset('images/1720329809_shubham-dhage-t0Bv0OBQuTg-unsplash.jpg') }}" alt="" style="width:100px"
-                    style="height: 100px">
+                <img class="responsive" src= "{{Storage::url($img->image_path) }}" alt=""
+                    style="width:100%" style="height: 100%">
             @endforeach
-            <img class="responsive" src= "{{ '/storage/image/' . $img->image_path }}" alt="" style="width:100%"
-                style="height: 100%">
             <h1>{{ $items->name }}</h1>
             <p class="price">@lang('res.price') : {{ $items->price }} </p>
             <p> @lang('res.description') : {{ $items->describtion }}</p>

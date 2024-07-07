@@ -43,7 +43,7 @@ class AdsController extends Controller
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string',
-                'describtion' => 'required|string',
+                //'description' => 'required|string',
                 'amount' => 'required|integer',
                 'price' => 'required|integer',
                 'note' => 'required|string',
@@ -64,7 +64,7 @@ class AdsController extends Controller
                 $ads = $user->ads()->create([
                     'user_id' => $request->user_id,
                     'name' => $request->name,
-                    'describtion' => $request->describtion,
+                    'description' => $request->description,
                     'amount' => $request->amount,
                     'price' => $request->price,
                     'note' => $request->note,
@@ -73,29 +73,18 @@ class AdsController extends Controller
                 if ($request->hasFile('image_path')) {
                     foreach ($request->file('image_path') as $file) {
                         $filename = time() . '_' . $file->getClientOriginalName();
-                        //  $file->move(public_path('images'), $filename);
-                        $file->store('image', 'public');
+                        $filePath = $file->storeAs('ads_images', $filename, 'public');
                         $ads->images()->create([
                             'ad_id' => $ads->id,
-                            'image_path' => 'ads_images/' . $filename
+                            'image_path' => $filePath
                         ]);
                     }
 
                     $data = Ads::all();
 
-                    return View('home', compact('data'));
-                    /*return response()->json([
-                    'success' => 1,
-                    'result' => __('res.a_store'),
-                    'message' => ""
-                ], 200);*/
+                    return view('home', compact('data'));
                 } else {
-                    return View('add_post');
-                    /* return response()->json([
-                    'success' => 0,
-                    'result' => null,
-                    'message' => 'No images uploaded.'
-                ], 200);*/
+                    return view('add_post');
                 }
             } catch (Exception $e) {
                 return response()->json([
@@ -105,7 +94,7 @@ class AdsController extends Controller
                 ], 200);
             }
         }
-        return View('add_post');
+        return view('add_post');
     }
     public function show($id)
     {
