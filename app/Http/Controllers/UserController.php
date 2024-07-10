@@ -10,12 +10,13 @@ use App\Models\User;
 use Resources\lang\ar;
 use Resources\lang\en;
 use Exception;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        /* $users = User::all();
         try {
             if ($users) {
                 return response()->json([
@@ -36,9 +37,11 @@ class UserController extends Controller
                 'result' => null,
                 'message' => $e
             ], 200);
-        }
+        }*/
+        $p = User::all();
+        return View('users.indexp', compact('p'));
     }
-    function store(Request $request)
+    function store1(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|string',
@@ -165,4 +168,71 @@ class UserController extends Controller
             ], 200);
         }
     }
+    public function destroy2($uId)
+    {
+        $p = User::findOrFail($uId);
+        $p->delete();
+        return redirect('users')->with('status', 'Permission created Sucsessfully');
+    }
+    public function create()
+    {
+        $roles = Role::pluck('name', 'name')->all();
+        return View('users.create', compact('roles'));
+    }
+    function store(Request $request)
+    {
+        $request->validate([
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'mid_name' => 'required|string',
+            'password' => 'required|string|min:6',
+            "email" => 'required|email|unique:users',
+            "phone_number" => 'required', //|unique:users,phone_number',
+            "address" => "string|required",
+            "roles" => "required"
+        ]);
+
+        $user = new User();
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->mid_name = $request->mid_name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->phone_number = $request->phone_number;
+        $user->address = $request->address;
+        $user->save();
+
+        $user->syncRoles($request->roles);
+        return redirect('/users');
+    }
+    public function modify($uId)
+    {
+        $roles = Role::pluck('name', 'name')->all();
+        return View('users.modify_roles',compact('roles','uId'));
+    }
+
+    public function modify_roles(Request $request, $uid)
+    {
+        $request->validate([
+            "roles" => "required"
+        ]);
+
+        $user = User::findOrFail($uid);
+        $user->syncRoles($request->roles);
+        return redirect('/users');
+    }
 }
+/* <div class="form-group">
+                <label for="">Permission in the permission table</label>
+                <div class="row">
+                    @foreach ($p as $p1)
+                        <div class="col-md-3">
+                            <label for=""></label>
+                            <input type="checkbox" name="permission[]" value="{{ $p1->name }}" id="name"
+                                placeholder="Name">
+                                {{$p1->name}}
+                            </label>
+                        </div>
+                    @endforeach
+                </div>
+            </div> */

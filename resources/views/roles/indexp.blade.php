@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-    <title>Home Page</title>
-    @csrf
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Roles</title>
     <style>
         .top-header {
             background-color: #333;
@@ -43,6 +43,7 @@
             text-decoration: none;
             padding: 10px;
             transition: background-color 0.3s;
+            margin: 20px
         }
 
         .menu li a:hover {
@@ -140,6 +141,11 @@
             font-size: 18px;
         }
 
+        .card h4 {
+            padding: 12px;
+            text-align: start;
+        }
+
         .card button:hover {
             opacity: 0.7;
         }
@@ -212,72 +218,59 @@
         .dropdown:hover .dropbtn {
             background-color: #b62319;
         }
+
+        .card-body .table tr:first-child td {
+            border-top: 0;
+        }
+
+        .GFG {
+            width: 100px;
+            height: 50px;
+            background: green;
+            border: none;
+            color: white;
+        }
+
+        .aa a {
+            width: 300px;
+            background: rgb(19, 122, 218);
+            height: 100px;
+
+        }
     </style>
 </head>
 
 <body>
-
     <header class="top-header">
         <nav class="navbar">
             <div class="container">
                 <ul class="menu">
-                    <li><a href="{{ route('home') }}">@lang('res.home')</a></li>
-                    <li><a href="{{ route('profile') }}">@lang('res.profile')</a></li>
-                    <li><a href="{{ route('logout') }}">@lang('res.logout')</a></li>
-                    <li><a href="{{ route('addpost') }}">@lang('res.addpost')</a></li>
+                    <li><a href="{{ url('permission') }}">Permission</a></li>
+                    <li><a href="{{ url('users') }}">Users</a></li>
                 </ul>
-            </div>
-            <div class="dropdown">
-                <button class="dropbtn">Language</button>
-                <div class="dropdown-content">
-                    <a href="{{ url('auth/home/ar') }}" action="" method="get">Arabic
-                        <script>
-                            {{ Session::put('local', 'ar') }}
-                        </script>
-                    </a>
-                    <a href="{{ url('auth/home/en') }}" action="" method="get">English
-                        <script>
-                            {{ Session::get('local') }}
-                        </script>
-                    </a>
-                </div>
             </div>
         </nav>
     </header>
+    
+    <div class="a">
+        @if (@session('status'))
+            <div class="alert alert-success">{{ session('status') }}</div>
+        @endif
+    </div>
 
-    <div class="body-content">
-        <div class="container">
-            <div class="container">
-
-
-                <!--    <h2>Hi "auth()->user()->first_name", Welcome to the First Laravel project</h2>
-                /storage/image/ $img->image_path -->
-
-            </div>
-        </div>
+    <div class="aa">
+        <a href="{{ url('role/create') }}" class="GFG">Add Roles</a>
     </div>
     <div class="card">
-        @foreach ($data as $items)
-            @foreach ($items->images as $img)
-                <img class="responsive" src= "{{Storage::url($img->image_path) }}" alt=""
-                    style="width:100%" style="height: 100%">
-
-            @endforeach
-            <h1>{{ $items->name }}</h1>
-            <p class="price">@lang('res.price') : {{ $items->price }} </p>
-            <p> @lang('res.description') : {{ $items->describtion }}</p>
-            <p><button class="btn">@lang('res.getitnow')</button></p>
+        @foreach ($p as $item)
+            <p>{{ $item->name }}</p>
+            <a href="{{url('role/' . $item->id . '/delete')}}" class="GFG">delete</a>
+            <a href="{{ url('role/' . $item->id . '/edit') }}" class="GFG">update</a>
+            <a href="{{ url('role/' . $item->id . '/give-p') }}" class="GFG">give_permission</a>
             <hr>
             <br>
         @endforeach
     </div>
 </body>
-<footer>
-    <p>&copy; 2024 AD Laravel. All rights reserved.</p>
-</footer>
-
 
 </html>
-
-<!--"https://contentstatic.techgig.com/photo/88751917/7-programming-languages-every-beginner-should-explore.jpg?35120"
--->
