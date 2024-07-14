@@ -30,11 +30,15 @@ Route::controller(UserController::class)->group(function () {
 
 
 Route::middleware(Localize::class)->group(function () {
-    Route::get('auth/home/{lang}', [LangControllre::class, 'setlang']);
-    Route::get('auth/local/local/{lang}', [LangControllre::class, 'back']);
-    //  Route::get('auth/local/local/{lang}',[LangControllre::class,'back']);
+
+
+    ////
     Route::get('auth/local/en', [LangControllre::class, 'e'])->name('e');
     Route::get('auth/local/ar', [LangControllre::class, 'a'])->name('a');
+    ////
+
+
+
     //////////////
     Route::resource('users', UserController::class);
     Route::controller(UserController::class)->group(function () {
@@ -70,7 +74,6 @@ Route::middleware(Localize::class)->group(function () {
 
 
     ///////////////
-    Route::get('home', [AuthController::class, 'home'])->name('home');
     Route::group([
         'middleware' => 'auth',
         'prefix' => 'auth'
@@ -85,11 +88,11 @@ Route::group([
     'middleware' => ['guest', 'web'],
     'prefix' => 'auth'
 ], function ($router) {
+    //  Route::match(['get', 'post'], 'logout', [AuthController::class, 'logout'])->name('logout');
     Route::match(['get', 'post'], 'addpost', [AdsController::class, 'store'])->name('addpost');
     Route::match(['get', 'post'], 'register', [AuthController::class, 'register'])->name('register');
     Route::match(['get', 'post'], 'login', [AuthController::class, 'login'])->name('login');
     Route::match(['get', 'post'], 'verify_otp', [AuthController::class, 'verify_otp'])->name('verify_otp');
     Route::match(['get', 'post'], 'profile', [AuthController::class, 'profile'])->name('profile');
     Route::get('home', [AuthController::class, 'home'])->name('home');
-    //  Route::get('local/{lang}',[LangControllre::class,'setlang']);
 });
