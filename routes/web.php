@@ -66,11 +66,15 @@ Route::middleware(Localize::class)->group(function () {
 
     Route::resource('role', RoleController::class);
     Route::get('role/{rId}/delete', [RoleController::class, 'destroy']);
-    Route::get('role/{rId}/edit', [RoleController::class, 'edit']);
+    Route::get('role/{rId}/edit', [RoleController::class, 'edit'])->middleware('auth');
     Route::put('role/{rId}/a', [RoleController::class, 'update']);
-    Route::get('role/{rId}/give-p', [RoleController::class, 'givep']);
-    Route::put('role/{rId}/give-p', [RoleController::class, 'updatep']);
+    Route::get('role/{rId}/give-p', [RoleController::class, 'givep'])->middleware('auth');
+    Route::put('role/{rId}/give-p', [RoleController::class, 'updatep'])->middleware('auth');
 
+    ///login
+    Route::match(['get', 'post'], 'register', [AuthController::class, 'register'])->name('register');
+    Route::match(['get', 'post'], 'login', [AuthController::class, 'login'])->name('login');
+    Route::match(['get', 'post'], 'verify_otp', [AuthController::class, 'verify_otp'])->name('verify_otp');
 
 
     ///////////////
@@ -78,21 +82,16 @@ Route::middleware(Localize::class)->group(function () {
         'middleware' => 'auth',
         'prefix' => 'auth'
     ], function ($router) {
-        //  Route::match(['get', 'post'], 'addpost', [AdsController::class, 'store'])->name('addpost');
+        Route::match(['get', 'post'], 'addpost', [AdsController::class, 'store'])->name('addpost');
         Route::match(['get', 'post'], 'logout', [AuthController::class, 'logout'])->name('logout');
+        Route::get('home', [AuthController::class, 'home'])->name('home');
+        Route::match(['get', 'post'], 'profile', [AuthController::class, 'profile'])->name('profile');
         Route::get('home', [AuthController::class, 'home'])->name('home');
         //    Route::match(['get', 'post'], 'profile', [AuthController::class, 'profile'])->name('profile');
     });
 });
 Route::group([
-    'middleware' => ['guest', 'web'],
+    'middleware' => ['auth'], // ['guest', 'web'],
     'prefix' => 'auth'
 ], function ($router) {
-    //  Route::match(['get', 'post'], 'logout', [AuthController::class, 'logout'])->name('logout');
-    Route::match(['get', 'post'], 'addpost', [AdsController::class, 'store'])->name('addpost');
-    Route::match(['get', 'post'], 'register', [AuthController::class, 'register'])->name('register');
-    Route::match(['get', 'post'], 'login', [AuthController::class, 'login'])->name('login');
-    Route::match(['get', 'post'], 'verify_otp', [AuthController::class, 'verify_otp'])->name('verify_otp');
-    Route::match(['get', 'post'], 'profile', [AuthController::class, 'profile'])->name('profile');
-    Route::get('home', [AuthController::class, 'home'])->name('home');
 });

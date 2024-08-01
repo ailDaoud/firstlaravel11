@@ -230,14 +230,14 @@
             <div class="dropdown">
                 <button class="dropbtn">Language</button>
                 <div class="dropdown-content">
-                    <a href="{{ url('auth/home/ar') }}" action="" method="get">Arabic
+                    <a href="{{ url('auth/local/ar') }}" action="" method="get">Arabic
                         <script>
                             {{ Session::put('local', 'ar') }}
                         </script>
                     </a>
-                    <a href="{{ url('auth/home/en') }}" action="" method="get">English
+                    <a href="{{ url('auth/local/en') }}" action="" method="get">English
                         <script>
-                            {{ Session::get('local') }}
+                            {{ Session::get('local','en') }}
                         </script>
                     </a>
                 </div>
@@ -259,9 +259,8 @@
     <div class="card">
         @foreach ($data as $items)
             @foreach ($items->images as $img)
-                <img class="responsive" src= "{{ Storage::url($img->image_path) }}" alt="" style="width:100%"
-                    style="height: 100%">
-                <p>{{$img->image_path}}</p>
+                <img class="responsive" src= "{{ Storage::url($img->image_path) }}" alt="" style="width:20%"
+                    style="height: 10%">
             @endforeach
             <h1>{{ $items->name }}</h1>
             <p class="price">@lang('res.price') : {{ $items->price }} </p>
