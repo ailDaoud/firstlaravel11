@@ -156,7 +156,7 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->logout();
-        return View('logout'); # This is just logout function that will destroy access token of current user
+        return View('login'); # This is just logout function that will destroy access token of current user
 
         //     return response()->json(['message' => 'Successfully logged out']);
     }
@@ -210,5 +210,9 @@ class AuthController extends Controller
             }
         }
         return View('otp_verify');
+    }
+    public function a()
+    {
+        return view('layouts.app');
     }
 }

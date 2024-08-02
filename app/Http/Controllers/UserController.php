@@ -208,7 +208,7 @@ class UserController extends Controller
     public function modify($uId)
     {
         $roles = Role::pluck('name', 'name')->all();
-        return View('users.modify_roles',compact('roles','uId'));
+        return View('users.modify_roles', compact('roles', 'uId'));
     }
 
     public function modify_roles(Request $request, $uid)

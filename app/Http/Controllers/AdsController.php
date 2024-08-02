@@ -202,3 +202,16 @@ class AdsController extends Controller
         }
     }
 }
+
+
+/*
+ <section class="auto-slider">
+                <div id="slider">
+                    <figure>
+                        @foreach ($items->images as $img)
+                            <img class="responsive" src= "{{ Storage::url($img->image_path) }}" alt="">
+                        @endforeach
+                    </figure>
+                    <div class="indicator"></div>
+                </div>
+            </section>*/

@@ -31,7 +31,7 @@ class RoleController extends Controller
                 ],
             ]
         );
-        Role::create(['guard_name' => 'api','name' => $request->name]);
+        Role::create(['guard_name' => 'web','name' => $request->name]);
         return redirect('role')->with('status', 'roles created Sucsessfully');
     }
 
@@ -63,7 +63,7 @@ class RoleController extends Controller
     {
         $p = Role::findOrFail($rId);
         $p->delete();
-        return redirect('role')->with('status', 'roles created Sucsessfully');
+        return redirect('role')->with('status', 'roles deleted Sucsessfully');
     }
     public function givep($rId)
     {
@@ -82,6 +82,6 @@ class RoleController extends Controller
         );
         $role = Role::findOrFail($rId);
         $role->syncPermissions($request->permission);
-        return redirect()->back()->with('status', 'roles ');
+        return redirect()->back()->with('status', 'roles');
     }
 }

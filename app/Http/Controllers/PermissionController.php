@@ -49,12 +49,12 @@ class PermissionController extends Controller
          );
          $item->name=$request->name;
          $item->save();
-         return redirect('permission')->with('status','Permission created Sucsessfully');
+         return redirect('permission')->with('status','Permission updated Sucsessfully');
     }
 
     public function destroy($pId){
        $p=Permission::findOrFail($pId);
         $p->delete();
-        return redirect('permission')->with('status','Permission created Sucsessfully');
+        return redirect('permission')->with('status','Permission deleted Sucsessfully');
     }
 }

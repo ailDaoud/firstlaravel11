@@ -37,7 +37,7 @@ Route::middleware(Localize::class)->group(function () {
     Route::get('auth/local/ar', [LangControllre::class, 'a'])->name('a');
     ////
 
-
+    Route::get('admin', [AuthController::class, 'a']);
 
     //////////////
     Route::resource('users', UserController::class);
@@ -89,9 +89,4 @@ Route::middleware(Localize::class)->group(function () {
         Route::get('home', [AuthController::class, 'home'])->name('home');
         //    Route::match(['get', 'post'], 'profile', [AuthController::class, 'profile'])->name('profile');
     });
-});
-Route::group([
-    'middleware' => ['auth'], // ['guest', 'web'],
-    'prefix' => 'auth'
-], function ($router) {
 });

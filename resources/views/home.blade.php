@@ -212,6 +212,20 @@
         .dropdown:hover .dropbtn {
             background-color: #b62319;
         }
+
+        .auto-slider {
+            position: relative;
+            box-sizing: content-box;
+            display: inline-block;
+            padding: 10px 10px 20px;
+            background: #fff;
+            max-width: 720px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 4px;
+            box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+
+        }
     </style>
 </head>
 
@@ -237,7 +251,7 @@
                     </a>
                     <a href="{{ url('auth/local/en') }}" action="" method="get">English
                         <script>
-                            {{ Session::get('local','en') }}
+                            {{ Session::get('local', 'en') }}
                         </script>
                     </a>
                 </div>
@@ -257,11 +271,19 @@
         </div>
     </div>
     <div class="card">
+
+
         @foreach ($data as $items)
-            @foreach ($items->images as $img)
-                <img class="responsive" src= "{{ Storage::url($img->image_path) }}" alt="" style="width:20%"
-                    style="height: 10%">
-            @endforeach
+            <section class="auto-slider">
+                <div id="slider">
+                    <figure>
+                        @foreach ($items->images as $img)
+                            <img class="responsive" src= "{{ Storage::url($img->image_path) }}" alt="">
+                        @endforeach
+                    </figure>
+                    <div class="indicator"></div>
+                </div>
+            </section>
             <h1>{{ $items->name }}</h1>
             <p class="price">@lang('res.price') : {{ $items->price }} </p>
             <p> @lang('res.description') : {{ $items->describtion }}</p>
@@ -270,6 +292,37 @@
             <br>
         @endforeach
     </div>
+    <!--  there is my test code -->
+    <section class="shop6 featuresLink cid-rt01T637Tj" id="shop06-1b">
+        <div class="container-fluid px-5">
+            <h4 class="main-title pb-5 align-left mbr-regular mbr-fonts-style display-2">This Month's New Ads</h4>
+            @foreach ($data as $items)
+                <div class="row justify-content-center">
+                    <div class="card p-3 col-12 col-md-6 col-lg-3">
+                        <div class="card-wrapper">
+                            <div class="card-img">
+                                <a href="" target="_blank">
+                                    @foreach ($items->images as $img)
+                                        <img src="{{ Storage::url($img->image_path) }}"
+                                            style="max-height: 10%; max-width:20%" alt="" title="">
+                                    @endforeach
+                                </a>
+                            </div>
+                            <div class="card-box align-left">
+
+                                <h4 class="card-title mbr-fonts-style display-5">{{ $items->name }}</h4>
+                                <h6> @lang('res.description') : {{ $items->describtion }}</h6>
+                                <h5 class="card-link mbr-fonts-style display-5"><a
+                                        href="https://my.mobirise.com/buy.php?p=307"
+                                        class="text-primary">{{ $items->price }}</a></h5>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            @endforeach
+        </div>
+    </section>
 </body>
 <footer>
     <p>&copy; 2024 AD Laravel. All rights reserved.</p>
@@ -277,6 +330,7 @@
 
 
 </html>
+
 
 <!--"https://contentstatic.techgig.com/photo/88751917/7-programming-languages-every-beginner-should-explore.jpg?35120"
 -->
