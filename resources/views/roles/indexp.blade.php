@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Roles</title>
+
+@section('content')
     <style>
         .top-header {
             background-color: #333;
@@ -19,8 +15,12 @@
         }
 
         .container {
-            width: 80%;
-            margin: 0 auto;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 100%;
+            margin: auto;
+            text-align: center;
+            font-family: arial;
+            padding: auto;
         }
 
         .menu {
@@ -238,39 +238,28 @@
 
         }
     </style>
-</head>
 
-<body>
-    <header class="top-header">
-        <nav class="navbar">
-            <div class="container">
-                <ul class="menu">
-                    <li><a href="{{ url('permission') }}">Permission</a></li>
-                    <li><a href="{{ url('users') }}">Users</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    
-    <div class="a">
-        @if (@session('status'))
-            <div class="alert alert-success">{{ session('status') }}</div>
-        @endif
-    </div>
 
-    <div class="aa">
-        <a href="{{ url('role/create') }}" class="GFG">Add Roles</a>
-    </div>
-    <div class="card">
-        @foreach ($p as $item)
-            <p>{{ $item->name }}</p>
-            <a href="{{url('role/' . $item->id . '/delete')}}" class="GFG">delete</a>
-            <a href="{{ url('role/' . $item->id . '/edit') }}" class="GFG">update</a>
-            <a href="{{ url('role/' . $item->id . '/give-p') }}" class="GFG">give_permission</a>
-            <hr>
-            <br>
-        @endforeach
-    </div>
-</body>
 
-</html>
+    <div role="main">
+        <div class="a">
+            @if (@session('status'))
+                <div class="alert alert-success">{{ session('status') }}</div>
+            @endif
+        </div>
+
+        <div class="aa">
+            <a href="{{ url('role/create') }}" class="GFG">Add Roles</a>
+        </div>
+        <div class="container">
+            @foreach ($p as $item)
+                <p>{{ $item->name }}</p>
+                <a href="{{ url('role/' . $item->id . '/delete') }}" class="GFG">delete</a>
+                <a href="{{ url('role/' . $item->id . '/edit') }}" class="GFG">update</a>
+                <a href="{{ url('role/' . $item->id . '/give-p') }}" class="GFG">give_permission</a>
+                <hr>
+                <br>
+            @endforeach
+        </div>
+    </div>
+@endsection

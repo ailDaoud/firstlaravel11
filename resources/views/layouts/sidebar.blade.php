@@ -1,7 +1,7 @@
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
-            <a href=""><i class="fa fa-home"></i> <span>Snel Woningruil</span></a>
+            <a href=""><i class="fa fa-home"></i> <span>My First Project</span></a>
         </div>
         <div class="clearfix"></div>
 
@@ -23,30 +23,21 @@
             <div class="menu_section">
                 <ul class="nav side-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="">
-                            <i class="fa fa-users"></i>
+                        <a class="nav-link" href="{{ url('users') }}">
+                            <i class="fa fa-users"> Users</i>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">
-                            <i class="fa fa-envelope"></i>
+                        <a class="nav-link" href="{{ url('role') }}">
+                            <i class="fa fa-cog" aria-hidden="true"> Roles</i>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">
-                            <i class="fa fa-home"></i>
+                        <a class="nav-link" href="{{ url('permission') }}">
+                            <i class="fa fa-cog" aria-hidden="true"> Permission</i>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">
-                            <i class="fa fa-building"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">
-                            <i class="fa fa-th-list"></i>
-                        </a>
-                    </li>
+
                 </ul>
 
 

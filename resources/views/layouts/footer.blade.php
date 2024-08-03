@@ -1,6 +1,6 @@
 <footer>
     <div class="pull-right">
-        <a href="https://snelwoningruil.nl">Snel Woningruil</a>
+        <a href="">My first Project</a>
     </div>
     <div class="clearfix"></div>
 </footer>

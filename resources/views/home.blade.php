@@ -21,6 +21,7 @@
         .container {
             width: 80%;
             margin: 0 auto;
+
         }
 
         .menu {
@@ -81,7 +82,7 @@
 
         .profile-form button {
             padding: 10px;
-            background-color: #007bff;
+            background-color: #ea00ff;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -90,7 +91,7 @@
         }
 
         .profile-form button:hover {
-            background-color: #0056b3;
+            background-color: #1bb300;
         }
 
         div.error {
@@ -133,10 +134,10 @@
             outline: 0;
             padding: 12px;
             color: white;
-            background-color: #007bff;
+            background-color: #44ff00;
             text-align: center;
             cursor: pointer;
-            width: 100%;
+            width: 10%;
             font-size: 18px;
         }
 
@@ -270,59 +271,42 @@
             </div>
         </div>
     </div>
-    <div class="card">
-
-
-        @foreach ($data as $items)
-            <section class="auto-slider">
-                <div id="slider">
-                    <figure>
-                        @foreach ($items->images as $img)
-                            <img class="responsive" src= "{{ Storage::url($img->image_path) }}" alt="">
-                        @endforeach
-                    </figure>
-                    <div class="indicator"></div>
-                </div>
-            </section>
-            <h1>{{ $items->name }}</h1>
-            <p class="price">@lang('res.price') : {{ $items->price }} </p>
-            <p> @lang('res.description') : {{ $items->describtion }}</p>
-            <p><button class="btn">@lang('res.getitnow')</button></p>
-            <hr>
-            <br>
-        @endforeach
-    </div>
     <!--  there is my test code -->
-    <section class="shop6 featuresLink cid-rt01T637Tj" id="shop06-1b">
-        <div class="container-fluid px-5">
-            <h4 class="main-title pb-5 align-left mbr-regular mbr-fonts-style display-2">This Month's New Ads</h4>
-            @foreach ($data as $items)
-                <div class="row justify-content-center">
-                    <div class="card p-3 col-12 col-md-6 col-lg-3">
-                        <div class="card-wrapper">
-                            <div class="card-img">
-                                <a href="" target="_blank">
-                                    @foreach ($items->images as $img)
-                                        <img src="{{ Storage::url($img->image_path) }}"
-                                            style="max-height: 10%; max-width:20%" alt="" title="">
-                                    @endforeach
-                                </a>
-                            </div>
-                            <div class="card-box align-left">
+    <div class="card">
+        <section class="shop6 featuresLink cid-rt01T637Tj" id="shop06-1b">
+            <div class="container-fluid px-5">
+                <h4 class="main-title pb-5 align-left mbr-regular mbr-fonts-style display-2">This Month's New Ads</h4>
+                @foreach ($data as $items)
+                    <div class="row justify-content-center">
+                        <div class="card p-3 col-12 col-md-6 col-lg-3">
+                            <div class="card-wrapper">
+                                <div class="card-img">
+                                    <a href="" target="_blank">
+                                        <figure>
+                                            @foreach ($items->images as $img)
+                                                <img src="{{ Storage::url($img->image_path) }}"
+                                                    style="max-height: 10%; max-width:20%" alt=""
+                                                    title="">
+                                            @endforeach
+                                        </figure>
+                                    </a>
+                                </div>
+                                <div class="card-box align-left">
 
-                                <h4 class="card-title mbr-fonts-style display-5">{{ $items->name }}</h4>
-                                <h6> @lang('res.description') : {{ $items->describtion }}</h6>
-                                <h5 class="card-link mbr-fonts-style display-5"><a
-                                        href="https://my.mobirise.com/buy.php?p=307"
-                                        class="text-primary">{{ $items->price }}</a></h5>
+                                    <h4 class="card-title mbr-fonts-style display-5">{{ $items->name }}</h4>
+                                    <h6> @lang('res.description') : {{ $items->describtion }}</h6>
+                                    <h5 class="card-link mbr-fonts-style display-5"><a
+                                            href="https://my.mobirise.com/buy.php?p=307"
+                                            class="text-primary">{{ $items->price }}</a></h5>
+                                </div>
+                                <div><button type="button" class="btn btn-success">Add to Card</button></div>
                             </div>
                         </div>
                     </div>
-
-                </div>
-            @endforeach
-        </div>
-    </section>
+                @endforeach
+            </div>
+        </section>
+    </div>
 </body>
 <footer>
     <p>&copy; 2024 AD Laravel. All rights reserved.</p>
@@ -330,6 +314,9 @@
 
 
 </html>
+
+
+
 
 
 <!--"https://contentstatic.techgig.com/photo/88751917/7-programming-languages-every-beginner-should-explore.jpg?35120"

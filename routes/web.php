@@ -30,23 +30,39 @@ Route::controller(UserController::class)->group(function () {
 
 
 Route::middleware(Localize::class)->group(function () {
+    Route::group(['middleware' => ['role:Super admin']], function () {
+        /////Permision
+        Route::resource('permission', PermissionController::class);
+        Route::get('permission/{pId}/delete', [PermissionController::class, 'destroy']);
+        Route::get('permission/{pId}/edit', [PermissionController::class, 'edit']);
+        Route::put('permission/{pId}/a', [PermissionController::class, 'update']);
+        /////Roles
+        Route::resource('role', RoleController::class);
+        Route::get('role/{rId}/delete', [RoleController::class, 'destroy']);
+        Route::get('role/{rId}/edit', [RoleController::class, 'edit'])->middleware('auth');
+        Route::put('role/{rId}/a', [RoleController::class, 'update']);
+        Route::get('role/{rId}/give-p', [RoleController::class, 'givep'])->middleware('auth');
+        Route::put('role/{rId}/give-p', [RoleController::class, 'updatep'])->middleware('auth');
+        //////Users
+        Route::resource('users', UserController::class);
+        Route::controller(UserController::class)->group(function () {
+            Route::post('/user/update/{id}', 'update');
+        });
+        Route::get('users/{uId}/delete', [UserController::class, 'destroy2']);
+        Route::get('users/{uId}/modify', [UserController::class, 'modify']);
+        Route::put('users/{uId}/modify_roles', [UserController::class, 'modify_roles']);
+    });
 
 
-    ////
+    ////Localization
     Route::get('auth/local/en', [LangControllre::class, 'e'])->name('e');
     Route::get('auth/local/ar', [LangControllre::class, 'a'])->name('a');
     ////
 
     Route::get('admin', [AuthController::class, 'a']);
 
-    //////////////
-    Route::resource('users', UserController::class);
-    Route::controller(UserController::class)->group(function () {
-        Route::post('/user/update/{id}', 'update');
-    });
-    Route::get('users/{uId}/delete', [UserController::class, 'destroy2']);
-    Route::get('users/{uId}/modify', [UserController::class, 'modify']);
-    Route::put('users/{uId}/modify_roles', [UserController::class, 'modify_roles']);
+
+
 
 
     //*////////////////
@@ -59,17 +75,7 @@ Route::middleware(Localize::class)->group(function () {
     });
     //////////////
 
-    Route::resource('permission', PermissionController::class);
-    Route::get('permission/{pId}/delete', [PermissionController::class, 'destroy']);
-    Route::get('permission/{pId}/edit', [PermissionController::class, 'edit']);
-    Route::put('permission/{pId}/a', [PermissionController::class, 'update']);
 
-    Route::resource('role', RoleController::class);
-    Route::get('role/{rId}/delete', [RoleController::class, 'destroy']);
-    Route::get('role/{rId}/edit', [RoleController::class, 'edit'])->middleware('auth');
-    Route::put('role/{rId}/a', [RoleController::class, 'update']);
-    Route::get('role/{rId}/give-p', [RoleController::class, 'givep'])->middleware('auth');
-    Route::put('role/{rId}/give-p', [RoleController::class, 'updatep'])->middleware('auth');
 
     ///login
     Route::match(['get', 'post'], 'register', [AuthController::class, 'register'])->name('register');

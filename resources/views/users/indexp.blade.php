@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Premission</title>
+@section('content')
     <style>
         .top-header {
             background-color: #333;
@@ -19,8 +14,12 @@
         }
 
         .container {
-            width: 80%;
-            margin: 0 auto;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 100%;
+            margin: auto;
+            text-align: center;
+            font-family: arial;
+            padding: auto;
         }
 
         .menu {
@@ -104,7 +103,7 @@
             padding: 15px;
             margin-top: 20px;
             background-color: #d4edda;
-            border: 1px solid #0dc337;
+            border: 1px solid #0d90c3;
             color: #155724;
             border-radius: 5px;
             position: relative;
@@ -118,10 +117,11 @@
 
         .card {
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            max-width: 1000%;
+            max-width: 100%;
             margin: auto;
             text-align: center;
             font-family: arial;
+            padding: auto;
         }
 
         .price {
@@ -238,39 +238,29 @@
 
         }
     </style>
-</head>
 
-<body>
-    <header class="top-header">
-        <nav class="navbar">
-            <div class="container">
-                <ul class="menu">
-                    <li><a href="{{ url('role') }}">Roles</a></li>
-                    <li><a href="{{ url('permission') }}">Permission</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <div class="a">
-        @if (@session('status'))
-            <div class="alert alert-success">{{ session('status') }}</div>
-        @endif
-    </div>
 
-    <div class="aa">
-        <a href="{{ url('users/create') }}" class="GFG">Add user</a>
-    </div>
-    <div class="card">
-        @foreach ($p as $item)
-            <p>{{ $item->first_name }}</p>
-            <p>{{ $item->mid_name }}</p>
-            <p>{{ $item->last_name }}</p>
-            <a href="{{url('users/' . $item->id . '/delete')}}" class="GFG">delete</a>
-            <a href="{{ url('users/' . $item->id.'/modify') }}" class="GFG">modify_roles</a>
-            <hr>
-            <br>
-        @endforeach
-    </div>
-</body>
+    <div role="main">
+        <div class="a">
+            @if (@session('status'))
+                <div class="alert alert-success">{{ session('status') }}</div>
+            @endif
+        </div>
 
-</html>
+        <div class="aa">
+            <a href="{{ url('users/create') }}" class="GFG">Add user</a>
+        </div>
+        <div class="container">
+            @foreach ($p as $item)
+                <p>{{ $item->first_name }}</p>
+                <p>{{ $item->mid_name }}</p>
+                <p>{{ $item->last_name }}</p>
+                <a href="{{ url('users/' . $item->id . '/delete') }}" class="GFG">delete</a>
+                <a href="{{ url('users/' . $item->id . '/modify') }}" class="GFG">modify_roles</a>
+                <hr>
+                <br>
+            @endforeach
+        </div>
+
+    </div>
+@endsection

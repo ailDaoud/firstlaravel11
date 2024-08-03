@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <title>Register Page</title>
+
+@section('content')
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -17,9 +16,12 @@
         }
 
         .container {
-            width: 300px;
-            background: #0763a9;
-            padding: 31px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 100%;
+            margin: auto;
+            text-align: center;
+            font-family: arial;
+            padding: auto;
         }
 
         .login-form {
@@ -95,38 +97,33 @@
             color: #721c24;
         }
     </style>
-</head>
 
-<body>
-
-    <div class="container">
-
-
-        <form class="form" action="{{ url('users/' . $uId . '/modify_roles') }}" method="post" enctype="multipart/form-data">
-            <h2>Modify</h2>
-            @csrf
-            @method('PUT')
-            <div class="form-group">
-                <label for="">Role</label>
-                <div class="row">
-                    @foreach ($roles as $role)
-                        <div class="col-md-3">
-                            <label for=""></label>
-                            <input type="checkbox" name="roles[]" value="{{ $role }}" id="name"
-                                placeholder="Name">
-                            {{ $role }}
-                            </label>
-                        </div>
-                    @endforeach
+    <div role="main">
+        <div class="container">
+            <form class="form" action="{{ url('users/' . $uId . '/modify_roles') }}" method="post"
+                enctype="multipart/form-data">
+                <h2>Modify</h2>
+                @csrf
+                @method('PUT')
+                <div class="form-group">
+                    <label for="">Role</label>
+                    <div class="row">
+                        @foreach ($roles as $role)
+                            <div class="col-md-3">
+                                <label for=""></label>
+                                <input type="checkbox" name="roles[]" value="{{ $role }}" id="name"
+                                    placeholder="Name">
+                                {{ $role }}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <button type="submit">Modify</button>
-            </div>
-        </form>
+                <div class="form-group">
+                    <button type="submit">Modify</button>
+                </div>
+            </form>
 
+        </div>
     </div>
-
-</body>
-
-</html>
+@endsection
