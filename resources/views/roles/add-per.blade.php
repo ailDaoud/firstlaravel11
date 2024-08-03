@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+@extends('layouts.app')
+@section('content')
     <style>
         body {
             margin: 0;
@@ -18,9 +12,12 @@
         }
 
         .container {
-            width: 300px;
-            background: #0763a9;
-            padding: 31px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 100%;
+            margin: auto;
+            text-align: center;
+            font-family: arial;
+            padding: auto;
         }
 
         .login-form {
@@ -101,43 +98,39 @@
             height: 100px;
         }
     </style>
-</head>
-
-<body>
-    <div class="a">
-        <h2>Role:{{ $role->name }}</h2>
-    </div>
-    <div class="container">
-        <form class="form" action="{{ url('role/' . $role->id . '/give-p') }}" method="post">
-            <h2>Edit Permission</h2>
-            @csrf
-            @method('PUT')
-            <div class="form-group">
-                <label for="">Permission in the permission table</label>
-                <div class="row">
-                    @foreach ($p as $p1)
-                        <div class="col-md-3">
-                            <label for=""></label>
-                            <input type="checkbox" name="permission[]" value="{{ $p1->name }}" id="name"
-                                placeholder="Name">
-                                {{$p1->name}}
-                            </label>
-                        </div>
-                    @endforeach
+    <div role="main">
+        <div class="a">
+            <h2>Role:{{ $role->name }}</h2>
+        </div>
+        <div class="container">
+            <form class="form" action="{{ url('role/' . $role->id . '/give-p') }}" method="post">
+                <h2>Edit Permission</h2>
+                @csrf
+                @method('PUT')
+                <div class="form-group">
+                    <label for="">Permission in the permission table</label>
+                    <div class="row">
+                        @foreach ($p as $p1)
+                            <div class="col-md-3">
+                                <label for=""></label>
+                                <input type="checkbox" name="permission[]" value="{{ $p1->name }}" id="name"
+                                    placeholder="Name">
+                                {{ $p1->name }}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <button type="submit">Save Updates</button>
-            </div>
-            <div class="a">
-                @if (@session('status'))
-                    <div class="alert alert-success">{{ session('status') }}</div>
-                @endif
-            </div>
-        </form>
+                <div class="form-group">
+                    <button type="submit">Save Updates</button>
+                </div>
+                <div class="a">
+                    @if (@session('status'))
+                        <div class="alert alert-success">{{ session('status') }}</div>
+                    @endif
+                </div>
+            </form>
 
+        </div>
     </div>
-
-</body>
-
-</html>
+@endsection

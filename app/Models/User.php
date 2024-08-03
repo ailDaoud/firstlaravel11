@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Relations\HasMany;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +13,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable,HasRoles;
+    use HasFactory, Notifiable, HasRoles;
     protected $table = "users";
 
 
@@ -33,7 +34,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function ads(): HasMany
     {
-        return $this->hasMany(Ads::class,'user_id','id');
+        return $this->hasMany(Ads::class, 'user_id', 'id');
     }
     public function getJWTIdentifier()
     {
@@ -44,4 +45,11 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    public function hasRole($role)
+    {
+        if ($this->roles()->where('name', $role)->first()) {
+            return true;
+        }
+        return false;
+    }
 }

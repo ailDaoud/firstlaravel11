@@ -27,16 +27,18 @@
                             <i class="fa fa-users"> Users</i>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('role') }}">
-                            <i class="fa fa-cog" aria-hidden="true"> Roles</i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('permission') }}">
-                            <i class="fa fa-cog" aria-hidden="true"> Permission</i>
-                        </a>
-                    </li>
+                    @can('delete-user')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('role') }}">
+                                <i class="fa fa-cog" aria-hidden="true"> Roles</i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('permission') }}">
+                                <i class="fa fa-cog" aria-hidden="true"> Permission</i>
+                            </a>
+                        </li>
+                    @endcan
 
                 </ul>
 

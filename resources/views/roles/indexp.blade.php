@@ -248,15 +248,18 @@
             @endif
         </div>
 
-        <div class="aa">
-            <a href="{{ url('role/create') }}" class="GFG">Add Roles</a>
+        <div class="">
+            <a href="{{ url('role/create') }}" class=""><button class="btn-primary">Add Roles</button></a>
         </div>
         <div class="container">
             @foreach ($p as $item)
-                <p>{{ $item->name }}</p>
-                <a href="{{ url('role/' . $item->id . '/delete') }}" class="GFG">delete</a>
-                <a href="{{ url('role/' . $item->id . '/edit') }}" class="GFG">update</a>
-                <a href="{{ url('role/' . $item->id . '/give-p') }}" class="GFG">give_permission</a>
+                <h4>{{ $item->name }}</h4>
+                <a href="{{ url('role/' . $item->id . '/delete') }}" class=""><button class="btn-danger">Add
+                        Roles</button></a>
+                <a href="{{ url('role/' . $item->id . '/edit') }}" class=""><button class="btn-primary">Update
+                        Role</button></a>
+                <a href="{{ url('role/' . $item->id . '/give-p') }}" class=""><button class="btn-primary">Give
+                        Permission</button></a>
                 <hr>
                 <br>
             @endforeach

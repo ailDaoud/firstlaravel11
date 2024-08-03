@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ session('local') }}">
 
 <head>
     <title>Home Page</title>
     @csrf
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    @vite('resources/js/app.js')
     <style>
         .top-header {
             background-color: #333;
@@ -122,6 +123,7 @@
             margin: auto;
             text-align: center;
             font-family: arial;
+            background-color: rgb(254, 254, 254);
         }
 
         .price {
@@ -129,27 +131,20 @@
             font-size: 22px;
         }
 
-        .card button {
-            border: none;
-            outline: 0;
-            padding: 12px;
-            color: white;
-            background-color: #44ff00;
-            text-align: center;
-            cursor: pointer;
-            width: 10%;
-            font-size: 18px;
-        }
+        .card button {}
 
         .card button:hover {
             opacity: 0.7;
         }
 
         footer {
+            bottom: 0;
             text-align: center;
             padding: 20px;
             background: #333;
             color: #ffffff;
+            width: 100%;
+            height: 40px;
         }
 
         .responsive {
@@ -227,86 +222,106 @@
             box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
 
         }
+
+        #footer {
+            bottom: 0;
+        }
+
+        .card-img img {}
+
+        #a {}
     </style>
 </head>
 
 <body>
-
-    <header class="top-header">
-        <nav class="navbar">
-            <div class="container">
-                <ul class="menu">
-                    <li><a href="{{ route('home') }}">@lang('res.home')</a></li>
-                    <li><a href="{{ route('profile') }}">@lang('res.profile')</a></li>
-                    <li><a href="{{ route('logout') }}">@lang('res.logout')</a></li>
-                    <li><a href="{{ route('addpost') }}">@lang('res.addpost')</a></li>
-                </ul>
-            </div>
-            <div class="dropdown">
-                <button class="dropbtn">Language</button>
-                <div class="dropdown-content">
-                    <a href="{{ url('auth/local/ar') }}" action="" method="get">Arabic
-                        <script>
-                            {{ Session::put('local', 'ar') }}
-                        </script>
-                    </a>
-                    <a href="{{ url('auth/local/en') }}" action="" method="get">English
-                        <script>
-                            {{ Session::get('local', 'en') }}
-                        </script>
-                    </a>
+    <div id="a">
+        <header class="top-header">
+            <nav class="navbar">
+                <div class="container">
+                    <ul class="menu">
+                        <li><a href="{{ route('home') }}">@lang('res.home')</a></li>
+                        <li><a href="{{ route('profile') }}">@lang('res.profile')</a></li>
+                        <li><a href="{{ route('logout') }}">@lang('res.logout')</a></li>
+                        <li><a href="{{ route('addpost') }}">@lang('res.addpost')</a></li>
+                    </ul>
                 </div>
-            </div>
-        </nav>
-    </header>
+                <div class="dropdown">
+                    <button class="dropbtn">Language</button>
+                    <div class="dropdown-content">
+                        <a href="{{ url('auth/local/ar') }}" action="" method="get">Arabic
+                            <script>
+                                let local = "{{ session('local') }}";
+                                if (local == 'en') {
+                                    localStorage.setItem('local', 'en');
+                                } else {
+                                    localStorage.setItem('local', 'ar');
+                                }
+                                let a=localStorage.getItem('local');
+                                console.log(a);
+                                console.log("GGGGG");
+                            </script>
+                        </a>
+                        <a href="{{ url('auth/local/en') }}" action="" method="get">English
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </header>
 
-    <div class="body-content">
-        <div class="container">
-            <div class="container">
 
+        <!--  there is my test code -->
+        <div class="card">
+            <section class="shop6 featuresLink cid-rt01T637Tj" id="shop06-1b">
+                <div class="container-fluid px-5 ">
+                    <h4 class="main-title pb-5 align-left mbr-regular mbr-fonts-style display-2">This Month's New Ads
+                    </h4>
+                    @foreach ($data as $items)
+                        <div class="row-3 justify-content-center ">
+                            <div class="card p-3 col-12 col-md-6 col-lg-3 ">
+                                <div class="card-wrapper">
+                                    <div class="card-img">
+                                        <a href="" target="_blank">
+                                            <figure>
+                                                @foreach ($items->images as $img)
+                                                    <img src="{{ Storage::url($img->image_path) }}"
+                                                        style="max-height: 10%; max-width:20% " alt=""
+                                                        title="">
+                                                @endforeach
+                                            </figure>
+                                        </a>
+                                    </div>
+                                    <div class="card-box align-left">
 
-                <!--    <h2>Hi "auth()->user()->first_name", Welcome to the First Laravel project</h2>
-                /storage/image/ $img->image_path -->
-
-            </div>
-        </div>
-    </div>
-    <!--  there is my test code -->
-    <div class="card">
-        <section class="shop6 featuresLink cid-rt01T637Tj" id="shop06-1b">
-            <div class="container-fluid px-5">
-                <h4 class="main-title pb-5 align-left mbr-regular mbr-fonts-style display-2">This Month's New Ads</h4>
-                @foreach ($data as $items)
-                    <div class="row justify-content-center">
-                        <div class="card p-3 col-12 col-md-6 col-lg-3">
-                            <div class="card-wrapper">
-                                <div class="card-img">
-                                    <a href="" target="_blank">
-                                        <figure>
-                                            @foreach ($items->images as $img)
-                                                <img src="{{ Storage::url($img->image_path) }}"
-                                                    style="max-height: 10%; max-width:20%" alt=""
-                                                    title="">
-                                            @endforeach
-                                        </figure>
-                                    </a>
+                                        <h4 class="card-title mbr-fonts-style display-5">{{ $items->name }}</h4>
+                                        <h6> @lang('res.description') : {{ $items->describtion }}</h6>
+                                        <h4 class="">
+                                            <h5 href="" class="">{{ $items->price }}</h5>
+                                        </h4>
+                                    </div>
+                                    <div><button type="button" class="btn btn-primary">Add to Card</button></div>
                                 </div>
-                                <div class="card-box align-left">
-
-                                    <h4 class="card-title mbr-fonts-style display-5">{{ $items->name }}</h4>
-                                    <h6> @lang('res.description') : {{ $items->describtion }}</h6>
-                                    <h5 class="card-link mbr-fonts-style display-5"><a
-                                            href="https://my.mobirise.com/buy.php?p=307"
-                                            class="text-primary">{{ $items->price }}</a></h5>
-                                </div>
-                                <div><button type="button" class="btn btn-success">Add to Card</button></div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-            </div>
-        </section>
+                    @endforeach
+                </div>
+            </section>
+        </div>
+
     </div>
+    <script>
+        /* document.addEventListener("DOMContentLoaded", function() {
+                            let token = "{{ session('token') }}";
+                            if (token) {
+                                console.log("Token:", token);
+                                console.log("AAAAAA");
+
+                                localStorage.setItem('token', token);
+                            }
+                        });
+
+                        let token = "{{ session('token') }}";
+                        console.log("Token:", token);*/
+    </script>
 </body>
 <footer>
     <p>&copy; 2024 AD Laravel. All rights reserved.</p>

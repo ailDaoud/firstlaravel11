@@ -221,21 +221,6 @@
         .card-body .table tr:first-child td {
             border-top: 0;
         }
-
-        .GFG {
-            width: 100px;
-            height: 50px;
-            background: green;
-            border: none;
-            color: white;
-        }
-
-        .aa a {
-            width: 300px;
-            background: rgb(19, 122, 218);
-            height: 100px;
-
-        }
     </style>
 
     <div role="main">
@@ -244,16 +229,17 @@
                 <div class="alert alert-success">{{ session('status') }}</div>
             @endif
         </div>
-
-        <div class="aa">
-            <a href="{{ url('permission/create') }}" class="GFG">Add Permission</a>
+        <div class="">
+            <a href="{{ url('permission/create') }}" class="GFG"><button class="btn-peimary">Add Permission</button></a>
         </div>
         <div class="container">
-            
+
             @foreach ($p as $item)
-                <p>{{ $item->name }}</p>
-                <a href="{{ url('permission/' . $item->id . '/delete') }}" class="GFG">delete</a>
-                <a href="{{ url('permission/' . $item->id . '/edit') }}" class="GFG">update</a>
+                <h4>{{ $item->name }}</h4>
+                <a href="{{ url('permission/' . $item->id . '/delete') }}" class="GFG"><button class="btn-danger">Delete
+                        Permission</button></a>
+                <a href="{{ url('permission/' . $item->id . '/edit') }}" class="GFG"><button class="btn-primary">Update
+                        Permission</button></a>
                 <hr>
                 <br>
             @endforeach

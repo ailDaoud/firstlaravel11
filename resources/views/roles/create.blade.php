@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Create Roles</title>
+@extends('layouts.app')
+@section('content')
     <style>
         body {
             margin: 0;
@@ -18,9 +12,12 @@
         }
 
         .container {
-            width: 300px;
-            background: #0763a9;
-            padding: 31px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 100%;
+            margin: auto;
+            text-align: center;
+            font-family: arial;
+            padding: auto;
         }
 
         .login-form {
@@ -96,25 +93,21 @@
             color: #721c24;
         }
     </style>
-</head>
-
-<body>
-    <div class="container">
+    <div role="main">
+        <div class="container">
 
 
-        <form class="form" action="{{ url('role') }}" method="post">
-            <h2>Create Role</h2>
-            @csrf
-            <div class="form-group">
-                <input type="text" name="name" id="name" placeholder="Name">
-            </div>
-            <div class="form-group">
-                <button type="submit">Save</button>
-            </div>
-        </form>
+            <form class="form" action="{{ url('role') }}" method="post">
+                <h2>Create Role</h2>
+                @csrf
+                <div class="form-group">
+                    <input type="text" name="name" id="name" placeholder="Name">
+                </div>
+                <div class="form-group">
+                    <button type="submit">Save</button>
+                </div>
+            </form>
 
+        </div>
     </div>
-
-</body>
-
-</html>
+@endsection

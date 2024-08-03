@@ -43,7 +43,7 @@ class AdsController extends Controller
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string',
-                //'description' => 'required|string',
+                'describtion' => 'required|string',
                 'amount' => 'required|integer',
                 'price' => 'required|integer',
                 'note' => 'required|string',
@@ -64,7 +64,7 @@ class AdsController extends Controller
                 $ads = $user->ads()->create([
                     'user_id' => $request->user_id,
                     'name' => $request->name,
-                    'description' => $request->description,
+                    'describtion' => $request->describtion,
                     'amount' => $request->amount,
                     'price' => $request->price,
                     'note' => $request->note,

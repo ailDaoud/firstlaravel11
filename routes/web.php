@@ -30,7 +30,7 @@ Route::controller(UserController::class)->group(function () {
 
 
 Route::middleware(Localize::class)->group(function () {
-    Route::group(['middleware' => ['role:Super admin']], function () {
+    Route::group(['middleware' => ['auth']], function () {
         /////Permision
         Route::resource('permission', PermissionController::class);
         Route::get('permission/{pId}/delete', [PermissionController::class, 'destroy']);
@@ -48,10 +48,11 @@ Route::middleware(Localize::class)->group(function () {
         Route::controller(UserController::class)->group(function () {
             Route::post('/user/update/{id}', 'update');
         });
-        Route::get('users/{uId}/delete', [UserController::class, 'destroy2']);
+      //  Route::get('users/{uId}/delete', [UserController::class, 'destroy2']);
         Route::get('users/{uId}/modify', [UserController::class, 'modify']);
         Route::put('users/{uId}/modify_roles', [UserController::class, 'modify_roles']);
     });
+    Route::get('users/{uId}/delete', [UserController::class, 'destroy2'])->middleware('can:delete-user');
 
 
     ////Localization

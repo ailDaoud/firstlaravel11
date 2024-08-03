@@ -223,20 +223,7 @@
             border-top: 0;
         }
 
-        .GFG {
-            width: 100px;
-            height: 50px;
-            background: green;
-            border: none;
-            color: white;
-        }
-
-        .aa a {
-            width: 300px;
-            background: rgb(19, 122, 218);
-            height: 100px;
-
-        }
+        .container h5 {}
     </style>
 
 
@@ -247,16 +234,18 @@
             @endif
         </div>
 
-        <div class="aa">
-            <a href="{{ url('users/create') }}" class="GFG">Add user</a>
+        <div class="">
+            <a href="{{ url('users/create') }}" class=""><button class="btn-primary">Add user</button></a>
         </div>
         <div class="container">
             @foreach ($p as $item)
-                <p>{{ $item->first_name }}</p>
-                <p>{{ $item->mid_name }}</p>
-                <p>{{ $item->last_name }}</p>
-                <a href="{{ url('users/' . $item->id . '/delete') }}" class="GFG">delete</a>
-                <a href="{{ url('users/' . $item->id . '/modify') }}" class="GFG">modify_roles</a>
+                <h5>{{ $item->first_name . ' ' . $item->mid_name . ' ' . $item->last_name }}</h5>
+                @can('delete-user')
+                    <a href="{{ url('users/' . $item->id . '/delete') }}" class=""><button
+                            class="btn-danger">Delete</button></a>
+                @endcan
+                <a href="{{ url('users/' . $item->id . '/modify') }}" class=""><button class="btn-primary">Modify
+                        Roles</button></a>
                 <hr>
                 <br>
             @endforeach
